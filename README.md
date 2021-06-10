@@ -25,7 +25,7 @@ use {
         vim.api.nvim_set_keymap(
             'n',
             '<Leader>t',
-            '<cmd>call v:lua.trim_trailing_whitespace()<CR>',
+            [[<cmd>lua require('whitespace-nvim').trim()<CR>]]
             { noremap = true }
         )
     end

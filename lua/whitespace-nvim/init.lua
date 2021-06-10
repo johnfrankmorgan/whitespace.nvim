@@ -1,37 +1,36 @@
-local setup = function (options)
-  local defaults = {
-    highlight = 'DiffDelete',
-    ignored_filetypes = { 'TelescopePrompt' }
-  }
+local config = {
+  highlight = 'DiffDelete',
+  ignored_filetypes = { 'TelescopePrompt' },
+}
 
-  options = vim.tbl_extend('force', defaults, options)
+local whitespace = {}
 
-  if not vim.fn.hlexists(options.highlight) then
-    error(string.format('highlight %s does not exist', options.highlight))
+whitespace.highlight = function ()
+  if not vim.fn.hlexists(config.highlight) then
+    error(string.format('highlight %s does not exist', config.highlight))
   end
 
-  _G.highlight_trailing_whitespace = function ()
-    if vim.tbl_contains(options.ignored_filetypes, vim.bo.filetype) then
-      return
-    end
-
-    local command = string.format([[match %s /\s\+$/]], options.highlight)
-
-    vim.cmd(command)
+  if vim.tbl_contains(config.ignored_filetypes, vim.bo.filetype) then
+    return
   end
 
-  _G.trim_trailing_whitespace = function ()
-    vim.cmd [[%substitute/\v\s+$//g]]
-  end
+  local command = string.format([[match %s /\s\+$/]], config.highlight)
+  vim.cmd(command)
+end
 
+whitespace.trim = function ()
+  vim.cmd [[%substitute/\v\s+$//g]]
+end
 
+whitespace.setup = function (options)
+  config = vim.tbl_extend('force', config, options)
 
   vim.cmd [[
     augroup whitespace_nvim
       autocmd!
-      autocmd FileType * call v:lua.highlight_trailing_whitespace()
+      autocmd FileType * lua require('whitespace-nvim').highlight()
     augroup END
   ]]
 end
 
-return { setup = setup }
+return whitespace
