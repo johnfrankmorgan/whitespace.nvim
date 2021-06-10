@@ -23,7 +23,7 @@ whitespace.trim = function ()
 end
 
 whitespace.setup = function (options)
-  config = vim.tbl_extend('force', config, options)
+  config = vim.tbl_extend('force', config, options or {})
 
   vim.cmd [[
     augroup whitespace_nvim
