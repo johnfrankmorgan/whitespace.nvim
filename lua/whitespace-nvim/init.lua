@@ -1,6 +1,6 @@
 local config = {
   highlight = 'DiffDelete',
-  ignored_filetypes = { 'TelescopePrompt' },
+  ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help' },
 }
 
 local whitespace = {}
