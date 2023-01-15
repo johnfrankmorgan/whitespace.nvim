@@ -14,7 +14,7 @@ use {
 
             -- `highlight` configures which highlight is used to display
             -- trailing whitespace
-            highlight = 'DiffDelete'
+            highlight = 'DiffDelete',
 
             -- `ignored_filetypes` configures which filetypes to ignore when
             -- displaying trailing whitespace
