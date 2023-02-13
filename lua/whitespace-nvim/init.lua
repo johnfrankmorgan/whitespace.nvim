@@ -19,7 +19,7 @@ whitespace.highlight = function ()
 end
 
 whitespace.trim = function ()
-  vim.cmd [[%substitute/\v\s+$//eg]]
+  vim.cmd [[keeppatterns %substitute/\v\s+$//eg]]
 end
 
 whitespace.setup = function (options)
