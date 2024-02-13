@@ -2,6 +2,7 @@ local config = {
   highlight = 'DiffDelete',
   ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help' },
   ignore_terminal = true,
+  return_cursor = true,
 }
 
 local whitespace = {}
@@ -24,7 +25,13 @@ whitespace.highlight = function ()
 end
 
 whitespace.trim = function ()
+  local save_cursor = vim.fn.getpos(".")
+
   vim.cmd [[keeppatterns %substitute/\v\s+$//eg]]
+
+  if config.return_cursor then
+    vim.fn.setpos(".", save_cursor)
+  end
 end
 
 whitespace.setup = function (options)
