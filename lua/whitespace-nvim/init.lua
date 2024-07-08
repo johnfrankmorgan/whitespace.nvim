@@ -12,6 +12,8 @@ whitespace.highlight = function ()
     error(string.format('highlight %s does not exist', config.highlight))
   end
 
+  vim.cmd('match')
+
   if config.ignore_terminal and vim.bo.buftype == 'terminal' then
     return
   end
