@@ -7,7 +7,7 @@ local config = {
 
 local whitespace = {}
 
-whitespace.highlight = function ()
+whitespace.highlight = function()
   if not vim.fn.hlexists(config.highlight) then
     error(string.format('highlight %s does not exist', config.highlight))
   end
@@ -26,7 +26,7 @@ whitespace.highlight = function ()
   vim.cmd(command)
 end
 
-whitespace.trim = function ()
+whitespace.trim = function()
   local save_cursor = vim.fn.getpos(".")
 
   vim.cmd [[keeppatterns %substitute/\v\s+$//eg]]
@@ -36,7 +36,7 @@ whitespace.trim = function ()
   end
 end
 
-whitespace.setup = function (options)
+whitespace.setup = function(options)
   config = vim.tbl_extend('force', config, options or {})
 
   vim.cmd [[
