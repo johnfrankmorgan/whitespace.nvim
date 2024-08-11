@@ -7,7 +7,7 @@ local config = {
 
 local whitespace = {}
 
-whitespace.clean = function()
+whitespace.nohighlight = function()
   vim.cmd('match')
 end
 
@@ -32,15 +32,15 @@ end
 
 local function file_type()
   if vim.tbl_contains(config.ignored_filetypes, vim.bo.filetype) then
-    whitespace.clean()
-    return
+    whitespace.nohighlight()
+  else
+    whitespace.highlight()
   end
-  whitespace.highlight()
 end
 
 local function term_open()
   if config.ignore_terminal then
-    whitespace.clean()
+    whitespace.nohighlight()
   else
     whitespace.highlight()
   end
