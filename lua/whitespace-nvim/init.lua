@@ -66,6 +66,10 @@ whitespace.setup = function(options)
 		"UIEnter",
 		{ group = "whitespace_nvim", pattern = "*", callback = whitespace.highlight }
 	)
+	vim.api.nvim_create_autocmd(
+		"ColorScheme",
+		{ group = "whitespace_nvim", pattern = "*", callback = whitespace.highlight }
+	)
 end
 
 return whitespace
