@@ -1,6 +1,6 @@
 local config = {
 	highlight = "DiffDelete",
-	ignored_filetypes = { "TelescopePrompt", "Trouble", "help", "dashboard" },
+	ignored_filetypes = { "TelescopePrompt", "snacks_picker_input", "Trouble", "help", "dashboard" },
 	ignore_terminal = true,
 	return_cursor = true,
 }
