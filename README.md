@@ -23,6 +23,11 @@ use {
             -- `ignore_terminal` configures whether to ignore terminal buffers
             ignore_terminal = true,
 
+            -- `ignore_end_of_line_while_insert` configures wether to show
+            -- trailing whitespaces at the end of the current line while in
+            -- insert mode
+            ignore_end_of_line_while_insert = true,
+
             -- `return_cursor` configures if cursor should return to previous
             -- position after trimming whitespace
             return_cursor = true,
