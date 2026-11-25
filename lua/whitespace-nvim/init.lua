@@ -2,6 +2,7 @@ local config = {
 	highlight = "DiffDelete",
 	ignored_filetypes = { "TelescopePrompt", "snacks_picker_input", "Trouble", "help", "dashboard" },
 	ignore_terminal = true,
+	ignore_end_of_line_while_insert = true,
 	return_cursor = true,
 }
 
@@ -23,14 +24,19 @@ local function should_highlight()
 	return true
 end
 
-whitespace.highlight = function()
+whitespace.highlight = function(ev)
 	if not vim.fn.hlexists(config.highlight) then
 		error(string.format("highlight %s does not exist", config.highlight))
 	end
 
 	if should_highlight() then
-		local command = string.format([[match %s /\s\+$/]], config.highlight)
-		vim.cmd(command)
+		local match_pattern = [[/\s\+$/]]
+
+		if ev and ev.event == "InsertEnter" then
+			match_pattern = [[/\s\+\%#\@<!$/]]
+		end
+
+		vim.cmd(string.format([[match %s ]], config.highlight) .. match_pattern)
 	else
 		vim.cmd("match")
 	end
@@ -66,6 +72,17 @@ whitespace.setup = function(options)
 		"UIEnter",
 		{ group = "whitespace_nvim", pattern = "*", callback = whitespace.highlight }
 	)
+
+	if config.ignore_end_of_line_while_insert then
+		vim.api.nvim_create_autocmd(
+			"InsertLeave",
+			{ group = "whitespace_nvim", pattern = "*", callback = whitespace.highlight }
+		)
+		vim.api.nvim_create_autocmd(
+			"InsertEnter",
+			{ group = "whitespace_nvim", pattern = "*", callback = whitespace.highlight }
+		)
+	end
 end
 
 return whitespace
